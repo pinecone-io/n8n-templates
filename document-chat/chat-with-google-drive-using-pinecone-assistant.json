@@ -4,14 +4,14 @@
         "parameters": {
           "method": "POST",
           "url": "=https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "pineconeApi",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
               {
                 "name": "metadata",
-                "value": "={\n  \"file_id\": \"{{ $json.id }}\",\n  \"file_name\": \"{{ $json.name }}\"\n}"
+                "value": "={\n  \"external_file_id\": \"{{ $json.id }}\",\n  \"external_file_name\": \"{{ $json.name }}\"\n}"
               }
             ]
           },
@@ -31,7 +31,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          1632,
+          1456,
           -512
         ],
         "id": "42bb3e3b-1636-46e2-958e-64af75fade80",
@@ -40,6 +40,10 @@
           "httpHeaderAuth": {
             "id": "GvkhUuYna3y7p9e8",
             "name": "Pinecone API key - HTTP"
+          },
+          "pineconeApi": {
+            "id": "pBm0ARHJdLXfTUXe",
+            "name": "Pinecone"
           }
         }
       },
@@ -58,7 +62,7 @@
         "type": "n8n-nodes-base.googleDrive",
         "typeVersion": 3,
         "position": [
-          1424,
+          1264,
           -512
         ],
         "id": "df16c93e-d136-470e-981d-2c0cb0b8c75d",
@@ -111,8 +115,8 @@
         "parameters": {
           "method": "DELETE",
           "url": "=https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant/{{ $json.files[0].id }}",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "pineconeApi",
           "options": {
             "response": {
               "response": {
@@ -133,6 +137,10 @@
           "httpHeaderAuth": {
             "id": "GvkhUuYna3y7p9e8",
             "name": "Pinecone API key - HTTP"
+          },
+          "pineconeApi": {
+            "id": "pBm0ARHJdLXfTUXe",
+            "name": "Pinecone"
           }
         }
       },
@@ -140,7 +148,7 @@
         "parameters": {
           "content": "## 1. Add new or update files from Google Drive to Pinecone Assistant",
           "height": 640,
-          "width": 2016,
+          "width": 1776,
           "color": 7
         },
         "type": "n8n-nodes-base.stickyNote",
@@ -225,11 +233,17 @@
       {
         "parameters": {
           "url": "https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "pineconeApi",
           "sendQuery": true,
-          "specifyQuery": "json",
-          "jsonQuery": "={\"filter\": {\"file_id\": \"{{ $json.id }}\"}\n}",
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "filter",
+                "value": "={\n  \"external_file_id\": \"{{ $json.id }}\"\n}"
+              }
+            ]
+          },
           "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
@@ -244,6 +258,10 @@
           "httpHeaderAuth": {
             "id": "GvkhUuYna3y7p9e8",
             "name": "Pinecone API key - HTTP"
+          },
+          "pineconeApi": {
+            "id": "pBm0ARHJdLXfTUXe",
+            "name": "Pinecone"
           }
         }
       },
@@ -316,7 +334,7 @@
       },
       {
         "parameters": {
-          "content": "## Try it out\n\nThis n8n workflow template lets you chat with your Google Drive documents (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone Assistant. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)\n  * Note: When setting up the OAuth consent screen, skip steps 8-10 if running on localhost\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n\n### Setup\n\n1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant/-/files) \n\t1. Name your Assistant `n8n-assistant` and create it in the `United States` region\n\t2. If you use a different name or region, update the related nodes to reflect these changes\n2. Setup your Google Drive OAuth2 API credential in n8n\n\t1. In the File added node -> Credential to connect with, select Create new credential\n\t2. Set the Client ID and Client Secret from the values generated in the prerequisites\n\t3. Set the OAuth Redirect URL from the n8n credential in the Google Cloud Console ([instructions](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/#create-your-google-oauth-client-credentials))\n\t4. Name this credential `Google Drive account` so that other nodes reference it\n3. Setup Pinecone API key credential in n8n\n\t1. In the Upload file to assistant node -> Header Auth section, select Create new credential\n\t2. Enter `Api-Key` as the Name and paste in your Pinecone API key in the Value field\n\t3. Name this credential `Pinecone API key - HTTP` so that other nodes reference it\n4. Setup Pinecone MCP Bearer auth credential in n8n\n\t1. In the Pinecone Assistant node -> Credential for Bearer Auth section, select Create new credential\n\t2. Set the Bearer Token field to your Pinecone API key used in the previous step\n5. Setup the Open AI credential in n8n\n\t1. In the OpenAI Chat Model node -> Credential to connect with, select Create new credential\n\t2. Set the API Key field to your OpenAI API key\n6. Add your files to the Drive folder named `n8n-pinecone-demo` in the root of your My Drive\n\t1. If you use a different folder name, you'll need to update the Google Drive triggers to reflect that change\n7. Activate the workflow or test it with a manual execution to ingest the documents\n8. Chat with your docs!\n\n### Ideas for customizing this workflow\n\n- Customize the System Message on the AI Agent node to your use case to indicate what kind of knowledge is stored in Pinecone Assistant\n- Configure the Context Window Length in the Conversation Memory node\n- Swap out the Conversation Memory node for one that is more persistent\n- Make the [chat node publicly available](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#make-chat-publicly-available) or [create your own chat interface](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#mode) that calls the chat webhook URL.\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH), asking on the [Pinecone Forum](https://community.pinecone.io/), or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.\n",
+          "content": "## Try it out\n\nThis n8n workflow template lets you chat with your Google Drive documents (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone Assistant. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)\n  * Note: When setting up the OAuth consent screen, skip steps 8-10 if running on localhost\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n\n### Setup\n\n1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant/-/files) \n\t1. Name your Assistant `n8n-assistant` and create it in the `United States` region\n\t2. If you use a different name or region, update the related nodes to reflect these changes\n\t3. No need to configure a Chat model or Assistant instructions\n2. Setup your Google Drive OAuth2 API credential in n8n\n\t1. In the File added node -> Credential to connect with, select Create new credential\n\t2. Set the Client ID and Client Secret from the values generated in the prerequisites\n\t3. Set the OAuth Redirect URL from the n8n credential in the Google Cloud Console ([instructions](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/#create-your-google-oauth-client-credentials))\n\t4. Name this credential `Google Drive account` so that other nodes reference it\n3. Setup Pinecone API key credential in n8n\n\t1. In the Upload file to assistant node -> PineconeApi section, select Create new credential\n\t2. Paste in your Pinecone API key in the API Key field\n4. Setup Pinecone MCP Bearer auth credential in n8n\n\t1. In the Pinecone Assistant node -> Credential for Bearer Auth section, select Create new credential\n\t2. Set the Bearer Token field to your Pinecone API key used in the previous step\n5. Setup the Open AI credential in n8n\n\t1. In the OpenAI Chat Model node -> Credential to connect with, select Create new credential\n\t2. Set the API Key field to your OpenAI API key\n6. Add your files to a Drive folder named `n8n-pinecone-demo` in the root of your My Drive\n\t1. If you use a different folder name, you'll need to update the Google Drive triggers to reflect that change\n7. Activate the workflow or test it with a manual execution to ingest the documents\n8. Chat with your docs!\n\n### Ideas for customizing this workflow\n\n- Customize the System Message on the AI Agent node to your use case to indicate what kind of knowledge is stored in Pinecone Assistant\n- Configure the Context Window Length in the Conversation Memory node\n- Swap out the Conversation Memory node for one that is more persistent\n- Make the [chat node publicly available](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#make-chat-publicly-available) or [create your own chat interface](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#mode) that calls the chat webhook URL.\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH), asking on the [Pinecone Forum](https://community.pinecone.io/), or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
           "height": 1408,
           "width": 636
         },
@@ -332,14 +350,14 @@
       {
         "parameters": {
           "url": "=https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant/{{ $json.id }}",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "pineconeApi",
           "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          1648,
+          1504,
           -224
         ],
         "id": "0e6c99c7-b606-49e2-8360-103364ab22d0",
@@ -348,6 +366,10 @@
           "httpHeaderAuth": {
             "id": "GvkhUuYna3y7p9e8",
             "name": "Pinecone API key - HTTP"
+          },
+          "pineconeApi": {
+            "id": "pBm0ARHJdLXfTUXe",
+            "name": "Pinecone"
           }
         }
       },
@@ -358,8 +380,8 @@
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
         "position": [
-          2192,
-          -208
+          1952,
+          -224
         ],
         "id": "81b56a1e-ae46-4457-aaea-7dc5f8259d69",
         "name": "Wait",
@@ -425,7 +447,7 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.3,
         "position": [
-          1920,
+          1696,
           -224
         ],
         "id": "08870689-0537-49ab-9a12-07b4719f0500",
@@ -605,4 +627,4 @@
       "templateCredsSetupCompleted": true,
       "instanceId": "6ae6d27e57788e6797af2bf16734f2cac83ad4b8f8ebbf57445f55ef5d3a52da"
     }
-  }
+}
