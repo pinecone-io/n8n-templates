@@ -1,6 +1,12 @@
 # Chat with your Google Drive docs using Pinecone Assistant
 
+![Visual diagram of the n8n workflow connecting Google Drive to Pinecone Assistant and Open AI](document-chat.png)
+
 This n8n workflow template lets you chat with your Google Drive documents (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone Assistant. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.
+
+### What is Pinecone Assistant?
+
+[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.
 
 ## Try it out
 
