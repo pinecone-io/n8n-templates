@@ -19,7 +19,7 @@ This n8n workflow template lets you chat with your Google Drive documents (.docx
 
 ### Setup
 
-1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant/-/files) 
+1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) 
 	1. Name your Assistant `n8n-assistant` and create it in the `United States` region
 	2. If you use a different name or region, update the related nodes to reflect these changes
 2. Setup your Google Drive OAuth2 API credential in n8n
