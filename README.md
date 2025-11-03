@@ -35,6 +35,8 @@ Then, add your credentials (OpenAI, Pinecone, Google Drive, etc.) and you’re r
 
 |Template|File|Integrations used|
 | ------------- | ------------- | ------------- |
+|Assistant quickstart|quickstart/assistant-quickstart.json|[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
+|Database quickstart|database-quickstart/database-quickstart.json|[Pinecone Database](https://docs.pinecone.io/guides/get-started/overview), Open AI|
 |Chat with your Google Drive docs Using Pinecone Assistant|document-chat/chat-with-google-drive-docs.json|Google Drive, [Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
 
 ## Finding help
