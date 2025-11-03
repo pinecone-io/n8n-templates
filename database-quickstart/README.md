@@ -1,4 +1,4 @@
-# Database quickstat
+# Database quickstart
 
 This n8n workflow template lets you chat with Pinecone release notes files downloaded via HTTP using OpenAI and Pinecone vector database. It retrieves relevant context from your data in a Pinecone index in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.
 
