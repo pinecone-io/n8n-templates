@@ -146,7 +146,7 @@
       },
       {
         "parameters": {
-          "content": "## 1. Process new or update files from Google Drive, embed, and upsert to Pinecone index",
+          "content": "## 1. Process new files, embed, and upsert to Pinecone index",
           "height": 576,
           "width": 1744,
           "color": 7
