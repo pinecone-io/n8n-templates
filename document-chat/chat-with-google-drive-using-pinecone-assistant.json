@@ -15,6 +15,15 @@
             }
           ]
         },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "source_tag=n8n:http_node_pinecone_assistant"
+            }
+          ]
+        },
         "sendBody": true,
         "contentType": "multipart-form-data",
         "bodyParameters": {
@@ -119,6 +128,15 @@
         "url": "=https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant/{{ $json.files[0].id }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "pineconeApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "source_tag=n8n:http_node_pinecone_assistant"
+            }
+          ]
+        },
         "options": {
           "response": {
             "response": {
@@ -246,6 +264,15 @@
             }
           ]
         },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "source_tag=n8n:http_node_pinecone_assistant"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -354,6 +381,15 @@
         "url": "=https://prod-1-data.ke.pinecone.io/assistant/files/n8n-assistant/{{ $json.id }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "pineconeApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "source_tag=n8n:http_node_pinecone_assistant"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
