@@ -34,8 +34,8 @@
         "name": "OpenAI Chat Model",
         "credentials": {
           "openAiApi": {
-            "id": "gv5VN25jRLU7YkML",
-            "name": "OpenAI"
+            "id": "wRaEYGibKa7GoCaK",
+            "name": "OpenAi account"
           }
         }
       },
@@ -191,7 +191,9 @@
           "operation": "uploadFile",
           "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
           "externalFileId": "={{ $('Split to list').item.json.urls }}",
-          "additionalFields": {}
+          "additionalFields": {
+            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:quickstart"
+          }
         },
         "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
         "typeVersion": 1,
@@ -203,7 +205,7 @@
         "name": "Upload file to Assistant",
         "credentials": {
           "pineconeAssistantApi": {
-            "id": "ECCu8IzbiKHb0zxo",
+            "id": "GwHylpB6WoRjIGlA",
             "name": "Pinecone Assistant account"
           }
         }
@@ -211,7 +213,9 @@
       {
         "parameters": {
           "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "additionalFields": {}
+          "additionalFields": {
+            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:quickstart"
+          }
         },
         "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
         "typeVersion": 1,
@@ -223,7 +227,7 @@
         "name": "Get context from Assistant",
         "credentials": {
           "pineconeAssistantApi": {
-            "id": "ECCu8IzbiKHb0zxo",
+            "id": "GwHylpB6WoRjIGlA",
             "name": "Pinecone Assistant account"
           }
         }
