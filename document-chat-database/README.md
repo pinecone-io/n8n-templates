@@ -45,11 +45,12 @@ Try our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/gu
 	1. In the Cohere Reranker node -> Credential to connect with, select Create new credential
 	2. Set the API Key field to your OpenAI API key
 6. Add files to a Drive folder named `n8n-pinecone-demo` in the root of your My Drive
-	1. Download these files and add them to the Drive folde
-		1. https://docs.pinecone.io/release-notes/2025.md
-		2. https://docs.pinecone.io/release-notes/2024.md
-		3. https://docs.pinecone.io/release-notes/2023.md
-		4. https://docs.pinecone.io/release-notes/2022.md
+	1. Download these files and add them to the Drive folder
+		1. https://docs.pinecone.io/release-notes/2022.md
+		2. https://docs.pinecone.io/release-notes/2023.md
+		3. https://docs.pinecone.io/release-notes/2024.md
+		4. https://docs.pinecone.io/release-notes/2025.md
+		5. https://docs.pinecone.io/release-notes/2026.md
 	2. If you use a different folder name, you'll need to update the Google Drive triggers to reflect that change
 7. Activate the workflow or test it with a manual execution to ingest the documents
 8. Enter the chat prompts:
@@ -67,4 +68,4 @@ Try our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/gu
 	- Change the Description to reflect what data you are storing in the Pinecone index
 ### Need help?
 
-You can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH), asking on the [Pinecone Forum](https://community.pinecone.io/), or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.
+You can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.

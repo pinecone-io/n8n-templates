@@ -38,11 +38,11 @@ Then, add your credentials (OpenAI, Pinecone, Google Drive, etc.) and you’re r
 |Assistant quickstart|[assistant-quickstart/assistant-quickstart.json]()|[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
 |Database quickstart|[database-quickstart/database-quickstart.json]()|[Pinecone Database](https://docs.pinecone.io/guides/get-started/overview), Open AI|
 |Chat with your Google Drive docs Using Pinecone Assistant|[document-chat-assistant/chat-with-google-drive-using-pinecone-assistant.json]()|Google Drive, [Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
-|Chat with your Google Drive docs Using Pinecone Vector Database|[document-chat-database/chat-with-google-drive-using-pinecone-vector-database.json.json]()|Google Drive, [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview), Open AI|
+|Chat with your Google Drive docs Using Pinecone Vector Database|[document-chat-database/chat-with-google-drive-using-pinecone-vector-database.json]()|Google Drive, [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview), Open AI|
 
 ## Finding help
 
-You can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH), asking on the [Pinecone Forum](https://community.pinecone.io/), or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.
+You can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.
 
 ## Contributing
 
