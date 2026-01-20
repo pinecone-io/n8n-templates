@@ -38,14 +38,14 @@
         "typeVersion": 1.2,
         "position": [
           -80,
-          784
+          592
         ],
         "id": "98c2d7b7-88ff-49d6-9095-a386846f690b",
         "name": "Embeddings OpenAI",
         "credentials": {
           "openAiApi": {
-            "id": "gv5VN25jRLU7YkML",
-            "name": "OpenAI"
+            "id": "wRaEYGibKa7GoCaK",
+            "name": "OpenAi account"
           }
         }
       },
@@ -57,7 +57,7 @@
         "typeVersion": 1.3,
         "position": [
           -464,
-          1200
+          864
         ],
         "id": "5c37d980-4726-4f35-8845-71e8d4750121",
         "name": "When chat message received",
@@ -73,7 +73,7 @@
         "typeVersion": 2.2,
         "position": [
           -176,
-          1200
+          864
         ],
         "id": "b51a237f-2467-4f72-8d14-04b2443c5270",
         "name": "AI Agent"
@@ -91,14 +91,14 @@
         "typeVersion": 1.2,
         "position": [
           -272,
-          1472
+          1136
         ],
         "id": "f1299e20-a590-46f3-a742-24bd93fbd78e",
         "name": "OpenAI Chat Model",
         "credentials": {
           "openAiApi": {
-            "id": "gv5VN25jRLU7YkML",
-            "name": "OpenAI"
+            "id": "wRaEYGibKa7GoCaK",
+            "name": "OpenAi account"
           }
         }
       },
@@ -122,7 +122,7 @@
         "typeVersion": 1.3,
         "position": [
           112,
-          1344
+          1008
         ],
         "id": "c06a2096-c5cc-4a0d-a9f8-fcef5c237c81",
         "name": "Pinecone Vector Store Tool",
@@ -135,15 +135,15 @@
       },
       {
         "parameters": {
-          "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets you chat with your Google Drive documents (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone vector database. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n\n#### What is Pinecone vector database?\n[Pinecone vector database](https://docs.pinecone.io/guides/get-started/overview) indexes and stores vector embeddings for fast retrieval and searching for semantically similar data (semantic search over a dense index) or matching words or phrases (lexical or keyword search over a sparse index), or both (over a hybrid index). This template uses a dense Pinecone index for semantic search.\n\n#### Not interested in chunking and embedding your own data or figuring out which search method to use?\n\nTry our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/guides/assistant/quickstart#n8n) or check out the full workflow to chat with your Google Drive documents [here](https://n8n.io/workflows/9942-rag-powered-document-chat-with-google-drive-openai-and-pinecone-assistant/).\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)\n  * Note: When setting up the OAuth consent screen, skip steps 8-10 if running on localhost\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n* A [Cohere account](https://dashboard.cohere.com/welcome/register) and [API key](https://dashboard.cohere.com/api-keys)\n\n### Setup\n\n1. Create a Pinecone index in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/indexes) \n\t1. Name your index `n8n-dense-index`\n\t2. Select OpenAI's `text-embedding-3-small`\n\t3. Set the Dimension to `1536`\n\t4. Leave everything else as default\n\t5. If you use a different index name, update the related nodes to reflect this change\n2. Setup your Google Drive OAuth2 API credential in n8n\n\t1. In the File added node -> Credential to connect with, select Create new credential\n\t2. Set the Client ID and Client Secret from the values generated in the prerequisites\n\t3. Set the OAuth Redirect URL from the n8n credential in the Google Cloud Console ([instructions](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/#create-your-google-oauth-client-credentials))\n\t4. Name this credential `Google Drive account` so that other nodes reference it\n3. Setup Pinecone API key credential in n8n\n\t1. In the Pinecone Vector Store node -> Credential to connect with, select Create new credential\n\t2. Paste in your Pinecone API key in the API Key field\n\t3. Name this credential  `Pinecone` so that other nodes reference it\n4. Setup the Open AI credential in n8n\n\t1. In the OpenAI Chat Model node -> Credential to connect with, select Create new credential\n\t2. Set the API Key field to your OpenAI API key\n5. Setup the Cohere credential in n8n\n\t1. In the Cohere Reranker node -> Credential to connect with, select Create new credential\n\t2. Set the API Key field to your OpenAI API key\n6. Add files to a Drive folder named `n8n-pinecone-demo` in the root of your My Drive\n\t1. Download these files and add them to the Drive folde\n\t\t1. https://docs.pinecone.io/release-notes/2025.md\n\t\t2. https://docs.pinecone.io/release-notes/2024.md\n\t\t3. https://docs.pinecone.io/release-notes/2023.md\n\t\t4. https://docs.pinecone.io/release-notes/2022.md\n\t2. If you use a different folder name, you'll need to update the Google Drive triggers to reflect that change\n7. Activate the workflow or test it with a manual execution to ingest the documents\n8. Enter the chat prompts:\n\t1. `What support does Pinecone have for MCP?`\n\t2. `When was fetch by metadata released?`\n\n### Ideas for customizing this workflow\n\n- Use your own data and adjust the chunking strategy\n\t- You can read more about choosing a chunking strategy [here](https://www.pinecone.io/learn/chunking-strategies/).\n\t- You will need to consider the shape of your data and what queries you expect your users to execute. You want chunks that are big enough to contain enough meaningful information, but not so big that the meaning is diluted or it can't fit within the context window of the embedding model.\n- Update the AI Agent System Message\n\t- Change the System Message to reflect what the Pinecone Vector Store Tool will be used for. Be sure to include info on what data can be retrieved using that tool.\n- Update the Pinecone Vector Store Tool Description\n\t- Change the Description to reflect what data you are storing in the Pinecone index\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH), asking on the [Pinecone Forum](https://community.pinecone.io/), or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
-          "height": 1824,
-          "width": 940
+          "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets you chat with your Google Drive documents (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone vector database. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n#### Not interested in chunking and embedding your own data or figuring out which search method to use?\n\nTry our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/guides/assistant/quickstart#n8n) or check out the full workflow to chat with your Google Drive documents [here](https://n8n.io/workflows/9942-rag-powered-document-chat-with-google-drive-openai-and-pinecone-assistant/).\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)\n  * Note: When setting up the OAuth consent screen, skip steps 8-10 if running on localhost\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n* A [Cohere account](https://dashboard.cohere.com/welcome/register) and [API key](https://dashboard.cohere.com/api-keys)\n\n### Setup\n\n1. Create a Pinecone index in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/indexes) \n\t1. Name your index `n8n-dense-index`\n\t2. Select OpenAI's `text-embedding-3-small`\n\t3. Set the Dimension to `1536`\n\t4. Leave everything else as default\n\t5. If you use a different index name, update the related nodes to reflect this change\n2. Setup your Google Drive OAuth2 API credential in n8n\n3. Setup your Pinecone API key, Open AI, and Cohere credentials in n8n\n4. Download these files and add them to a Drive folder named `n8n-pinecone-demo` in the root of your My Drive\n\t1. https://docs.pinecone.io/release-notes/2022.md\n\t2. https://docs.pinecone.io/release-notes/2023.md\n\t3. https://docs.pinecone.io/release-notes/2024.md\n\t4. https://docs.pinecone.io/release-notes/2025.md\n\t5. https://docs.pinecone.io/release-notes/2026.md\n5. Activate the workflow or test it with a manual execution to ingest the documents\n6. Enter the chat prompts to chat with the Pinecone release notes\n\t1. `What support does Pinecone have for MCP?`\n\t2. `When was fetch by metadata released?`\n\n### Ideas for customizing this workflow\n\n- Use your own data and adjust the chunking strategy\n- Update the AI Agent System Message to reflect how the Pinecone Vector Store Tool will be used. Be sure to include info on what data can be retrieved using that tool.\n- Update the Pinecone Vector Store Tool Description to reflect what data you are storing in the Pinecone index\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
+          "height": 1488,
+          "width": 604
         },
         "id": "a62e23b3-eae6-48e6-9b9e-4b5853234a62",
         "name": "Sticky Note7",
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -1600,
+          -1248,
           -80
         ],
         "typeVersion": 1
@@ -181,7 +181,7 @@
         "typeVersion": 1,
         "position": [
           208,
-          1584
+          1248
         ],
         "id": "0af1ef79-079b-4c93-a7d6-ea65c153de52",
         "name": "Cohere Reranker",
@@ -195,7 +195,7 @@
       {
         "parameters": {
           "content": "## 1. Download, chunk, embed, and upsert Pinecone release notes to Pinecone index",
-          "height": 704,
+          "height": 608,
           "width": 1184,
           "color": 7
         },
@@ -218,7 +218,7 @@
         "type": "n8n-nodes-base.stickyNote",
         "position": [
           -608,
-          1072
+          736
         ],
         "typeVersion": 1,
         "id": "c844c7ca-fc77-44d7-9fc7-3ae5dd5b11b1",
@@ -233,17 +233,18 @@
         "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
         "typeVersion": 1,
         "position": [
-          272,
-          416
+          224,
+          352
         ],
         "id": "766a7768-8bf7-458b-b43c-29fe238fc8df",
         "name": "Character Text Splitter - markdown"
       },
       {
         "parameters": {
-          "content": "## What chunking strategy should I use?\n\nIn the case of the Pinecone release notes, these are markdown files with separators like this:\n\n```\n<Update label=\"2025-12-12\" tags={[\"General\"]}>\n  ### Upgrade from Starter to Standard trial\n\n  Organizations on the Starter plan can now upgrade to a Standard plan trial at any time. The Standard trial provides 21 days and \\$300 in credits to test Pinecone at scale, with access to Standard plan features such as higher limits. For more information, see [Standard plan trial](/guides/organizations/manage-billing/standard-trial).\n</Update>\n```\n\nEach release is contained in an `Update` tag and each feature indicated by `###`. We expect our queries to be as granular as features in a release, so we try to chunk by release without breaking up features. We want chunks to be big enough to contain meaningful information but not so big that the meaning is diluted or it can't fit within the context window of the embedding model.. Here, we use the Character Text Splitter and split on `<Update label=\"` with a chunk size about as big as a release and an overlap in case info spills to the next chunk.\n\nNote: We could also choose to use the Recursive Text Splitter to break paragraphs, sentences and words based on markdown syntax, depending on a given chunk size. This was less accurate for the example queries based on the shape of the data and expected queries.\n\nYou can read more about choosing a chunking strategy [here](https://www.pinecone.io/learn/chunking-strategies/).",
-          "height": 704,
-          "width": 576
+          "content": "## What chunking strategy should I use?\n\nIn the case of the Pinecone release notes, these are markdown files with separators like this:\n\n```\n<Update label=\"2025-12-12\" tags={[\"General\"]}>\n  ### Upgrade from Starter to Standard trial\n\n  Organizations on the Starter plan can now upgrade to a Standard plan trial at any time. The Standard trial provides 21 days and \\$300 in credits to test Pinecone at scale, with access to Standard plan features such as higher limits. For more information, see [Standard plan trial](/guides/organizations/manage-billing/standard-trial).\n</Update>\n```\n\nEach release is contained in an `Update` tag and each feature indicated by `###`. We expect our queries to be as granular as features in a release, so we try to chunk by release without breaking up features. We want chunks to be big enough to contain meaningful information but not so big that the meaning is diluted or it can't fit within the context window of the embedding model. Here, we use the Character Text Splitter and split on `<Update label=\"` with a chunk size about as big as a release and an overlap in case info spills to the next chunk.\n\nNote: We could also choose to use the Recursive Text Splitter to break paragraphs, sentences and words based on markdown syntax, depending on a given chunk size. This was less accurate for the example queries based on the shape of the data and expected queries.\n\nYou can read more about choosing a chunking strategy [here](https://www.pinecone.io/learn/chunking-strategies/).",
+          "height": 608,
+          "width": 576,
+          "color": 6
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
