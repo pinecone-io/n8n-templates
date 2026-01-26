@@ -1,0 +1,413 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{\n  (() => {\n    const blocks = $json.blocks || [];\n\n    let hasUser = false;\n    let textBlock = null;\n\n    for (const block of blocks) {\n      for (const el of block.elements || []) {\n        for (const inner of el.elements || []) {\n          if (inner.type === 'user') {\n            hasUser = true;\n          }\n\n          if (inner.type === 'text' && inner.text?.trim()) {\n            textBlock = inner.text.trim();\n          }\n        }\n      }\n    }\n\n    const hasText = !!textBlock;\n    const hasThreadTs = !!$json.thread_ts;\n\n    if (\n      (hasUser && hasText) ||\n      (hasText && hasThreadTs && !hasUser)\n    ) {\n      return textBlock;\n    }\n\n    return null;\n  })()\n}}\n",
+        "options": {
+          "systemMessage": "You are an AI assistant that helps customer support representatives using support data retrieved via the Pinecone Assistant tool. Answer only using retrieved content when available.\n\nWhen a question requires external information, call the tool to search customer support data (help articles, FAQs, known issues, support runbooks, ticket notes). If the question is ambiguous, ask a clarifying question before calling the tool.\n\nProvide concise, accurate, responses for Slack. Prefer 3–5 sentences. Use bullet points for instructions or lists. Quote retrieved content when helpful using `>` blockquotes. Do not speculate or infer beyond retrieved data.\n\nIf no relevant information is found, state this clearly and suggest next steps (manual investigation or escalation). If multiple sources apply, synthesize the most relevant and current information.\n\nYou assist but do not replace human judgment. For complex, high-risk, or customer-sensitive issues, provide the information found and recommend escalation."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        352,
+        384
+      ],
+      "id": "bdf937df-544f-444b-8694-9e0c4bc64362",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        640
+      ],
+      "id": "14c1dd5c-75c8-4342-87e5-2ed762550fde",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "sBnyFiImEUiSINLQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "additionalFields": {}
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
+      "typeVersion": 1,
+      "position": [
+        560,
+        672
+      ],
+      "id": "86b802d1-2c79-4c73-9a9d-0aef3176e0f7",
+      "name": "Pinecone Assistant tool",
+      "credentials": {
+        "pineconeAssistantApi": {
+          "id": "7y6pdDIKb7EJu8Wk",
+          "name": "Pinecone Assistant account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "app_mention",
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C0A9HNZ51C7",
+          "mode": "list",
+          "cachedResultName": "support-queries"
+        },
+        "options": {
+          "userIds": [
+            ""
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        432
+      ],
+      "id": "d17b515c-a5c1-4565-b254-f6f1a7cb124a",
+      "name": "On message from Slack",
+      "webhookId": "ea80a132-2e3a-49fd-a82d-55ea7bd97a02",
+      "credentials": {
+        "slackApi": {
+          "id": "JKzZvBSSQ23DEtBM",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.channel }}-{{ $json.user }}-{{ $('On message from Slack').item.json.thread_ts }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        272,
+        672
+      ],
+      "id": "4865c3b1-01f9-4052-bc44-bee1c7fbd467",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets customer support representatives query support docs like help articles, FAQs, run books, etc. via Slack bot. Drop your support docs into Dropbox, and this workflow will upload it from Dropbox to Pinecone Assistant. Then ask your Slack bot for info on support issues to get accurate, context-aware answers about your proprietary support data from Pinecone Assistant, all without the need to train your own LLM.\n\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n* A [Dropbox Developer account](https://www.dropbox.com/developers) and [API Access Token](https://docs.n8n.io/integrations/builtin/credentials/dropbox/)\n* A [Slack app with an access token](https://docs.n8n.io/integrations/builtin/credentials/slack/#using-api-access-token) and [webhook](https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.slacktrigger/#configure-a-webhook-in-slack)\n\n### Setup\n\n1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) named `n8n-assistant`\n2. Setup Pinecone API key, OpenAI API key, Slack access token, and Dropbox access token as credentials in n8n\n3. Create a Slack channel `support-queries` dedicated to this workflow and invite your Slack app to it\n4. In the On message from Slack node, select your Slack app in the Usernames or IDs to Ignore field\n5. Add your support docs (.docx, .txt, .pdf, .md, .json) to the `/Apps/your-dropbox-app-name/support-queries-docs` folder on Dropbox\n6. Manually execute Step 1 to upload the documents from Dropbox to Pinecone Assistant\n7. Post a message in your Slack channel mentioning your app: `@your-slack-app What are common issues customers have faced recently?`\n8. Reply in the thread with another message, with or without mentioning the app: `What are the recommended solutions to the [XYZ] issue?`\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.\n",
+        "height": 1024,
+        "width": 700
+      },
+      "id": "44c12ce0-c104-4dbd-ab70-2b0441e3ab8b",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -992,
+        -144
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 2,
+        "output": "={{\n  (() => {\n    const blocks = $json.blocks || [];\n\n    let hasUser = false;\n    let hasText = false;\n\n    for (const block of blocks) {\n      for (const el of block.elements || []) {\n        for (const inner of el.elements || []) {\n          if (inner.type === 'user') {\n            hasUser = true;\n          }\n\n          if (inner.type === 'text' && inner.text?.trim()) {\n            hasText = true;\n          }\n        }\n      }\n    }\n\n    const hasThreadTs = !!$json.thread_ts;\n\n    const result = (hasUser && hasText) ||\n      (hasText && hasThreadTs && !hasUser);\n\n    return result ? 1 : 0;\n  })()\n}}\n",
+        "looseTypeValidation": true
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        368
+      ],
+      "id": "a86643bf-f267-44a3-b83c-89716c00292f",
+      "name": "Switch",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "content": "## Step 2: Listen for queries from Slack and respond",
+        "height": 592,
+        "width": 1168,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        288
+      ],
+      "typeVersion": 1,
+      "id": "dc4cf006-3fdc-4bf3-a1a1-f778736ea7db",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -16
+      ],
+      "id": "d55504b2-96cd-4944-abd9-3472951cf1b5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Step 1: Upload documents from Dropbox to Pinecone Assistant",
+        "height": 384,
+        "width": 1168,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "ba2a8489-e0f3-4788-991d-37b2248002ad",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0A9HNZ51C7",
+          "mode": "list",
+          "cachedResultName": "n8n-bot-testing"
+        },
+        "text": "={{ $json.output }}",
+        "otherOptions": {
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $('On message from Slack').item.json.event_ts }}"
+            }
+          },
+          "mrkdwn": true,
+          "unfurl_links": true
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        704,
+        384
+      ],
+      "id": "ea178b7a-7a66-4cc5-b64d-b57d5bcc961a",
+      "name": "Respond in thread",
+      "webhookId": "5d1c2a26-d3e7-443d-a914-fb7e7699f528",
+      "credentials": {
+        "slackApi": {
+          "id": "JKzZvBSSQ23DEtBM",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "operation": "list",
+        "path": "/support-queries-docs",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.dropbox",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -16
+      ],
+      "id": "661b0d3b-05c9-49bc-83f7-dc248744503d",
+      "name": "Get files to upload",
+      "credentials": {
+        "dropboxApi": {
+          "id": "6gDVe4EWWvAgrCz2",
+          "name": "Dropbox account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "path": "={{ $json.pathLower }}"
+      },
+      "type": "n8n-nodes-base.dropbox",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -16
+      ],
+      "id": "54e1c8fa-f0b6-4c26-b9e5-af673be9a54d",
+      "name": "Download files",
+      "credentials": {
+        "dropboxApi": {
+          "id": "6gDVe4EWWvAgrCz2",
+          "name": "Dropbox account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "uploadFile",
+        "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "externalFileId": "={{ $json.id }}",
+        "additionalFields": {}
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -16
+      ],
+      "id": "3c0ebe7e-cb68-4010-93c4-eceb29e68e88",
+      "name": "Upload files",
+      "credentials": {
+        "pineconeAssistantApi": {
+          "id": "7y6pdDIKb7EJu8Wk",
+          "name": "Pinecone Assistant account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Ideas for customizing this workflow\n\n- Drop your own files into Dropbox and customize the System Message on the AI Agent node to indicate what kind of knowledge is stored in Pinecone Assistant\n- Swap out the manual trigger in Step 1 for a Webhook node and use a Dropbox webhook to listen for file changes. Add a parallel flow for updated files (vs the existing upload of new files) to update existing files on Pinecone Assistant using the Update File operation",
+        "height": 384,
+        "width": 448,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        944,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "b2bb75e2-0157-48c3-9235-7f059fd71ebd",
+      "name": "Sticky Note2"
+    }
+  ],
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond in thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Assistant tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On message from Slack": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get files to upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get files to upload": {
+      "main": [
+        [
+          {
+            "node": "Download files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download files": {
+      "main": [
+        [
+          {
+            "node": "Upload files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3bfbc47918af9fc1b625709c41023275d31bad0e76ed45624010db41c8294504"
+  }
+}

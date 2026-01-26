@@ -1,4 +1,4 @@
-# Extract insights from LinkedIn comments
+# Extract insights from LinkedIn comments using Apify and Pinecone Assistant
 
 ![Visual diagram of the n8n workflow to extract insights from LinkedIn](extract-insights-from-linkedin-comments.png)
 
