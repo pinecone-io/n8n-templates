@@ -20,24 +20,21 @@ This n8n workflow template lets you chat with your Google Drive documents (.docx
 ### Setup
 
 1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) 
-	1. Name your Assistant `n8n-assistant` and create it in the `United States` region
-	2. If you use a different name or region, update the related nodes to reflect these changes
+	1. Name your Assistant `n8n-assistant`
+	2. No need to configure a Chat model or Assistant instructions
 2. Setup your Google Drive OAuth2 API credential in n8n
 	1. In the File added node -> Credential to connect with, select Create new credential
 	2. Set the Client ID and Client Secret from the values generated in the prerequisites
 	3. Set the OAuth Redirect URL from the n8n credential in the Google Cloud Console ([instructions](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/#create-your-google-oauth-client-credentials))
 	4. Name this credential `Google Drive account` so that other nodes reference it
 3. Setup Pinecone API key credential in n8n
-	1. In the Upload file to assistant node -> Header Auth section, select Create new credential
-	2. Enter `Api-Key` as the Name and paste in your Pinecone API key in the Value field
-	3. Name this credential `Pinecone API key - HTTP` so that other nodes reference it
-4. Setup Pinecone MCP Bearer auth credential in n8n
-	1. In the Pinecone Assistant node -> Credential for Bearer Auth section, select Create new credential
-	2. Set the Bearer Token field to your Pinecone API key used in the previous step
+	1. In the Upload file to Assistant node -> PineconeApi section, select Create new credential
+	2. Paste in your Pinecone API key in the API Key field
+4. Select your Assistant Name in each of the Pinecone Assistant nodes
 5. Setup the Open AI credential in n8n
 	1. In the OpenAI Chat Model node -> Credential to connect with, select Create new credential
 	2. Set the API Key field to your OpenAI API key
-6. Add your files to the Drive folder named `n8n-pinecone-demo` in the root of your My Drive
+6. Add your files to a Drive folder named `n8n-pinecone-demo` in the root of your My Drive
 	1. If you use a different folder name, you'll need to update the Google Drive triggers to reflect that change
 7. Activate the workflow or test it with a manual execution to ingest the documents
 8. Chat with your docs!
@@ -45,9 +42,8 @@ This n8n workflow template lets you chat with your Google Drive documents (.docx
 ### Ideas for customizing this workflow
 
 - Customize the System Message on the AI Agent node to your use case to indicate what kind of knowledge is stored in Pinecone Assistant
-- Configure the Context Window Length in the Conversation Memory node
-- Swap out the Conversation Memory node for one that is more persistent
-- Make the [chat node publicly available](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#make-chat-publicly-available) or [create your own chat interface](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger/#mode) that calls the chat webhook URL.
+- Change the Top K and/or Snippet Size values to help manage token consumption by adding the Top K and/or Snippet Size parameters to Get context from Assistant node
+- Filter the context snippets even further by adding metadata filters to the Get context from Assistant node
 
 ### Need help?
 

@@ -1,6 +1,6 @@
 # n8n + Pinecone templates
 
-A collection of ready-to-use [n8n](https://n8n.io/) workflow templates for building intelligent automations using Pinecone.
+A collection of ready-to-use [n8n](https://n8n.io/) workflow templates for building intelligent automations using [Pinecone](https://www.pinecone.io/).
 
 These workflows let you chat with your data, process documents, and generate content by connecting sources like Google Drive, email attachments, and more.
 
@@ -35,10 +35,12 @@ Then, add your credentials (OpenAI, Pinecone, Google Drive, etc.) and you’re r
 
 |Template|File|Integrations used|
 | ------------- | ------------- | ------------- |
-|Assistant quickstart|quickstart/assistant-quickstart.json|[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
-|Database quickstart|database-quickstart/database-quickstart.json|[Pinecone Database](https://docs.pinecone.io/guides/get-started/overview), Open AI|
-|Chat with your Google Drive docs Using Pinecone Assistant|document-chat/chat-with-google-drive-docs.json|Google Drive, [Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview), Open AI|
-|Chat with your Google Drive docs Using Pinecone Vector Database|document-chat-database/chat-with-google-drive-using-pinecone-vector-database.json|Google Drive, [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview), Open AI, Cohere|
+|Assistant quickstart|[assistant-quickstart/assistant-quickstart.json]()|Pinecone Assistant, Open AI|
+|Database quickstart|[database-quickstart/database-quickstart.json]()|Pinecone Vector Store, Open AI|
+|Chat with your Google Drive docs Using Pinecone Assistant|[document-chat-assistant/chat-with-google-drive-using-pinecone-assistant.json]()|Google Drive, Pinecone Assistant, Open AI|
+|Chat with your Google Drive docs Using Pinecone Vector Database|[document-chat-database/chat-with-google-drive-using-pinecone-vector-database.json]()|Google Drive, Pinecone Vector Store, Open AI|
+|Extract insights from LinkedIn comments using Apify and Pinecone Assistant|[extract-insights-from-linkedin-comments/extract-insights-from-linkedin-comments.json]()|LinkedIn, Apify, Pinecone Assistant, Open AI|
+|Query support docs via Dropbox and Slack using Pinecone Assistant|[query-support-docs-via-dropbox-and-slack/query-support-docs-via-dropbox-and-slack.json]()|Dropbox, Slack, Pinecone Assistant, Open AI|
 
 ## Finding help
 
