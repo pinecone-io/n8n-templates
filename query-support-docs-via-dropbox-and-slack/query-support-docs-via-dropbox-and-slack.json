@@ -45,7 +45,9 @@
     {
       "parameters": {
         "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-        "additionalFields": {}
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:query_support_docs_via_dropbox_and_slack"
+        }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
       "typeVersion": 1,
@@ -269,7 +271,9 @@
         "operation": "uploadFile",
         "assistantData": "{\"name\":\"n8n-assistant\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
         "externalFileId": "={{ $json.id }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:query_support_docs_via_dropbox_and_slack"
+        }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
       "typeVersion": 1,
