@@ -7,7 +7,7 @@ This n8n workflow template lets you chat with Pinecone release notes files downl
 
 ### Not interested in chunking and embedding your own data or figuring out which search method to use?
 
-Try our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/guides/assistant/quickstart#n8n) or check out the full workflow to chat with your Google Drive documents [here](https://n8n.io/workflows/9942-rag-powered-document-chat-with-google-drive-openai-and-pinecone-assistant/).
+Try our n8n quickstart for Pinecone Assistant [here](https://docs.pinecone.io/guides/assistant/quickstart/n8n-quickstart) or check out the full workflow to chat with your Google Drive documents [here](https://n8n.io/workflows/9942-rag-powered-document-chat-with-google-drive-openai-and-pinecone-assistant/).
 
 ## Try it out
 
