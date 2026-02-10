@@ -2,6 +2,8 @@
 
 This workflow shows how a vacation rental property manager can manage multiple properties—each with different information—using [Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview). Guests can ask questions about their property in chat and get personalized answers from the right property’s documentation.
 
+![Vacation rental property manager with multiple Assistants](vacation-rental-property-manager-assistants.png)
+
 ## What this workflow does
 
 - **Step 1 – Upload property data:** Watches three Google Drive folders (`hillcrest`, `birchwood`, `lakeside`). When you add files to a folder, the workflow downloads them and uploads them to the corresponding Pinecone Assistant for that property.
