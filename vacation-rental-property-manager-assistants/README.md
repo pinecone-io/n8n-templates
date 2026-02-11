@@ -1,49 +1,49 @@
 # Vacation rental property manager with multiple Assistants
 
-This workflow shows how a vacation rental property manager can manage multiple properties—each with different information—using [Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview). Guests can ask questions about their property in chat and get personalized answers from the right property’s documentation.
-
 ![Vacation rental property manager with multiple Assistants](vacation-rental-property-manager-assistants.png)
 
-## What this workflow does
 
-- **Step 1 – Upload property data:** Watches three Google Drive folders (`hillcrest`, `birchwood`, `lakeside`). When you add files to a folder, the workflow downloads them and uploads them to the corresponding Pinecone Assistant for that property.
-- **Step 2 – Answer property questions:** A chat interface lets users ask questions (e.g. “How does the coffee maker work?” or “The air fryer isn’t working at the Lakeside property”). An AI agent infers which property they mean, then routes the question to the right Pinecone Assistant so answers come from that property’s docs.
+This workflow shows you how a vacation rental property manager can manage multiple properties each with different information using Pinecone Assistant. Guests can ask questions about their property and get a personalized answer back.
+### What is Pinecone Assistant?
 
-## What is Pinecone Assistant?
+[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.
 
-[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) helps you build chat and agent apps with retrieval-augmented generation (RAG) without managing chunking, embeddings, vector search, or reranking yourself.
+## Try it out
 
-## Prerequisites
+### Prerequisites
 
-- A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)
-- A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)
-- An [OpenAI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)
+* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)
+* A GCP project with [Google Drive API enabled and configured](https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/)
+* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)
 
-## Setup
+### Setup
 
-1. **Create three Pinecone Assistants** in the [Pinecone Console](https://app.pinecone.io/organizations/-/projects/-/assistant):
-   - `n8n-vacation-rental-property-hillcrest`
-   - `n8n-vacation-rental-property-birchwood`
-   - `n8n-vacation-rental-property-lakeside`  
-   You can leave Chat model and Assistant instructions unset.
+1. Create three Pinecone Assistants in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) 
+	1. Name your Assistants `n8n-vacation-rental-property-lakeside`, `n8n-vacation-rental-property-birchwood`, `n8n-vacation-rental-property-hillcrest`
+	2. No need to configure a Chat model or Assistant instructions
+2. Setup your Google Drive OAuth2 API, Pinecone API, and OpenAI credentials in n8n
+3. Select your Assistant Name in each of the respective Pinecone Assistant nodes
+4. Generate the fictional data for this demo using Claude or ChatGPT (or use your own files) and this prompt:
+```
+Generate fictional data in markdown format in multiple files for three fictional vacation rental properties in a fictional city. The rental property names are:
+- **Hillcrest Haven** – cozy hillside cottage
+- **Birchwood Retreat** – wooded cabin
+- **Lakeside Loft** – modern loft near the water
 
-2. **In n8n**, add credentials for:
-   - Google Drive (OAuth2)
-   - Pinecone (Assistant API)
-   - OpenAI
+Include house manual and rules, wifi codes, local restaurant, coffee shop, outdoor recreation, and entertainment recommendations, and fictional appliance manuals for the air fryer, coffee pot, tv, and washer and dryer.
 
-3. **In the workflow**, set the Assistant name in each Pinecone Assistant node to match the names above (if you used different names in the console, use those instead).
+All addresses, cities, names, phone numbers should be fictional. Each set of files should be named based on their property name like "hillcrest_haven_house_manual.md".
+```
+5. Add the files to three separate Drive folders named `lakeside`, `birchwood`, and `hillcrest`
+6. Activate the workflow to upload the documents to Pinecone
+7. Once the data is uploaded, ask questions in the chat about a property:
+	1. `I need help with the coffee maker`
+	2. `The air fryer isn't working at the Lakeside property`
 
-4. **In Google Drive**, create three folders named `hillcrest`, `birchwood`, and `lakeside`, and in the workflow point each “file added” trigger to the correct folder.
+### Ideas for customizing this workflow
 
-5. **Activate the workflow** so new files in those folders are uploaded to the assistants.
+- This workflow uses one Assistant per property. You could also use one Assistant and separate the data by setting a metadata field, `property`, to the name of the property the file is for.
 
-6. **Try the chat** with questions like:
-   - “I need help with the coffee maker”
-   - “The air fryer isn’t working at the Lakeside property”
+### Need help?
 
-## Customization ideas
-
-- This template uses **one Assistant per property**. You can instead use a single Assistant and use a metadata field (e.g. `property`) on each document to filter by property.
-- Adjust the AI agent’s system message to change how the assistant infers the property or handles “contact me” requests.
-
+You can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.
