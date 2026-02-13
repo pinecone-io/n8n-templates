@@ -23,7 +23,7 @@ This workflow shows you how a vacation rental property manager can manage multip
 	2. No need to configure a Chat model or Assistant instructions
 2. Setup your Google Drive OAuth2 API, Pinecone API, and OpenAI credentials in n8n
 3. Select your Assistant Name in each of the respective Pinecone Assistant nodes
-4. Generate the fictional data for this demo using Claude or ChatGPT (or use your own files) and this prompt:
+4. Ask Claude or ChatGPT to generate fictional data in markdown file(s) for each property. You'll use this data in the next step. Using this prompt:
 ```
 Generate fictional data in markdown format in multiple files for three fictional vacation rental properties in a fictional city. The rental property names are:
 - **Hillcrest Haven** – cozy hillside cottage
@@ -34,6 +34,8 @@ Include house manual and rules, wifi codes, local restaurant, coffee shop, outdo
 
 All addresses, cities, names, phone numbers should be fictional. Each set of files should be named based on their property name like "hillcrest_haven_house_manual.md".
 ```
+**Note:** If you don't want to generate your own files, you can use [these files](fictional-data).
+
 5. Add the files to three separate Drive folders named `lakeside`, `birchwood`, and `hillcrest`
 6. Activate the workflow to upload the documents to Pinecone
 7. Once the data is uploaded, ask questions in the chat about a property:
@@ -43,6 +45,7 @@ All addresses, cities, names, phone numbers should be fictional. Each set of fil
 ### Ideas for customizing this workflow
 
 - This workflow uses one Assistant per property. You could also use one Assistant and separate the data by setting a metadata field, `property`, to the name of the property the file is for.
+- Use your own data and customize to your use case with multiple store locations, restaurants, teams, etc.
 
 ### Need help?
 
