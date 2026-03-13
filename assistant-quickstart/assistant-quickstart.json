@@ -9,10 +9,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1360,
-        496
+        2208,
+        784
       ],
-      "id": "52bd17c4-81c6-485f-8e08-1477220f508f",
+      "id": "e4c65881-120c-4a7c-854b-138611c8dfa3",
       "name": "AI Agent"
     },
     {
@@ -27,10 +27,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1296,
-        720
+        2144,
+        1008
       ],
-      "id": "327b94c2-06f3-4a7b-bd3d-3dcfd92e28ef",
+      "id": "b3ea858d-b62d-4022-8241-8872e403839a",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
@@ -48,11 +48,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        768,
-        0
+        1616,
+        288
       ],
       "typeVersion": 1,
-      "id": "ae8f7bfc-d7e7-43e3-87ff-1863274cc3e1",
+      "id": "9cfcdb71-2986-47a3-8f03-250fcab1048d",
       "name": "Sticky Note1"
     },
     {
@@ -64,11 +64,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        768,
-        400
+        1616,
+        688
       ],
       "typeVersion": 1,
-      "id": "082e1b5a-edc0-4bb3-bbe8-163f81b82805",
+      "id": "d7f2f4b8-2e45-4902-8949-202b8b2c699b",
       "name": "Sticky Note2"
     },
     {
@@ -78,10 +78,10 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.3,
       "position": [
-        992,
-        496
+        1840,
+        784
       ],
-      "id": "02b8830a-6457-4e5e-bf9a-09a1a9d02183",
+      "id": "4d2a6aa1-ca4d-4165-a635-7ef53084636b",
       "name": "Chat input",
       "webhookId": "4672d1f8-d2bb-4059-8761-7aa5792814c0"
     },
@@ -91,12 +91,12 @@
         "height": 1280,
         "width": 636
       },
-      "id": "b65a87ae-090f-4362-92d0-1b4a91f539a9",
+      "id": "bfcb8a57-b52c-4510-8c03-e15c5da73d78",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        112,
-        0
+        960,
+        288
       ],
       "typeVersion": 1
     },
@@ -105,10 +105,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        912,
-        144
+        1760,
+        432
       ],
-      "id": "796a1e00-78ca-4dbe-82cd-c523f8fc3f4a",
+      "id": "3e9529b4-d0ae-4ea8-9d27-c96e7cbd6ad9",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -128,10 +128,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1072,
-        144
+        1920,
+        432
       ],
-      "id": "466d063b-4b6a-487d-935c-14b2a8f08b49",
+      "id": "6b409421-2270-497e-a7fd-b382d192314c",
       "name": "Set file urls"
     },
     {
@@ -142,10 +142,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1232,
-        144
+        2080,
+        432
       ],
-      "id": "e4a64e93-bf9c-4f05-97b8-3f9e65958ca3",
+      "id": "e73f6f2c-4d20-48cb-b132-551ff9c3dd61",
       "name": "Split to list"
     },
     {
@@ -162,10 +162,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1392,
-        144
+        2240,
+        432
       ],
-      "id": "d84c0b2d-06d3-405e-b6c8-afdbd18f3d83",
+      "id": "a58f8e1c-943b-4a24-8746-477ed9912ad4",
       "name": "Download file"
     },
     {
@@ -179,17 +179,17 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
-        1568,
-        144
+        2416,
+        432
       ],
-      "id": "591a71fe-4afa-4d06-8053-a2c1b81c026d",
+      "id": "196122df-d2b2-43e4-9f8d-710aedb595a6",
       "name": "Upload file to Assistant",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "GwHylpB6WoRjIGlA",
-          "name": "Pinecone Assistant account"
+        "pineconeApi": {
+          "id": "fMG8L3ZDy9UYa1DN",
+          "name": "Pinecone account"
         }
       }
     },
@@ -201,17 +201,17 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
-        1520,
-        704
+        2368,
+        992
       ],
-      "id": "80ff0124-519b-421b-ba00-a7a11aa6af38",
+      "id": "c3ba53e9-511d-47e7-b7fb-38bb093d279f",
       "name": "Get context from Assistant",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "GwHylpB6WoRjIGlA",
-          "name": "Pinecone Assistant account"
+        "pineconeApi": {
+          "id": "fMG8L3ZDy9UYa1DN",
+          "name": "Pinecone account"
         }
       }
     }
