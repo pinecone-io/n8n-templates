@@ -9,8 +9,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1216,
-        816
+        1360,
+        496
       ],
       "id": "52bd17c4-81c6-485f-8e08-1477220f508f",
       "name": "AI Agent"
@@ -27,8 +27,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1152,
-        1040
+        1296,
+        720
       ],
       "id": "327b94c2-06f3-4a7b-bd3d-3dcfd92e28ef",
       "name": "OpenAI Chat Model",
@@ -42,8 +42,8 @@
     {
       "parameters": {
         "content": "## 1. Upload files to Pinecone Assistant",
-        "height": 640,
-        "width": 1776,
+        "height": 384,
+        "width": 1104,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -58,14 +58,14 @@
     {
       "parameters": {
         "content": "## 2. Chat with your docs",
-        "height": 576,
-        "width": 1344,
+        "height": 512,
+        "width": 1104,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         768,
-        704
+        400
       ],
       "typeVersion": 1,
       "id": "082e1b5a-edc0-4bb3-bbe8-163f81b82805",
@@ -78,8 +78,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.3,
       "position": [
-        848,
-        816
+        992,
+        496
       ],
       "id": "02b8830a-6457-4e5e-bf9a-09a1a9d02183",
       "name": "Chat input",
@@ -95,7 +95,7 @@
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        0,
+        112,
         0
       ],
       "typeVersion": 1
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        928,
-        256
+        912,
+        144
       ],
       "id": "796a1e00-78ca-4dbe-82cd-c523f8fc3f4a",
       "name": "When clicking ‘Execute workflow’"
@@ -128,8 +128,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1088,
-        256
+        1072,
+        144
       ],
       "id": "466d063b-4b6a-487d-935c-14b2a8f08b49",
       "name": "Set file urls"
@@ -142,8 +142,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1248,
-        256
+        1232,
+        144
       ],
       "id": "e4a64e93-bf9c-4f05-97b8-3f9e65958ca3",
       "name": "Split to list"
@@ -154,7 +154,7 @@
         "options": {
           "response": {
             "response": {
-              "responseFormat": "text"
+              "responseFormat": "file"
             }
           }
         }
@@ -162,28 +162,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1408,
-        256
+        1392,
+        144
       ],
       "id": "d84c0b2d-06d3-405e-b6c8-afdbd18f3d83",
       "name": "Download file"
-    },
-    {
-      "parameters": {
-        "operation": "toText",
-        "sourceProperty": "data",
-        "options": {
-          "fileName": "={{ $('Split to list').item.json.urls }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1568,
-        256
-      ],
-      "id": "30666a64-1671-4069-8af3-1cd0c2f97302",
-      "name": "Convert to md file"
     },
     {
       "parameters": {
@@ -198,8 +181,8 @@
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
       "typeVersion": 1,
       "position": [
-        1776,
-        256
+        1568,
+        144
       ],
       "id": "591a71fe-4afa-4d06-8053-a2c1b81c026d",
       "name": "Upload file to Assistant",
@@ -220,8 +203,8 @@
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
       "typeVersion": 1,
       "position": [
-        1376,
-        1024
+        1520,
+        704
       ],
       "id": "80ff0124-519b-421b-ba00-a7a11aa6af38",
       "name": "Get context from Assistant",
@@ -290,17 +273,6 @@
       ]
     },
     "Download file": {
-      "main": [
-        [
-          {
-            "node": "Convert to md file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Convert to md file": {
       "main": [
         [
           {
