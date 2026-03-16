@@ -9,10 +9,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1216,
-        816
+        2208,
+        784
       ],
-      "id": "52bd17c4-81c6-485f-8e08-1477220f508f",
+      "id": "e4c65881-120c-4a7c-854b-138611c8dfa3",
       "name": "AI Agent"
     },
     {
@@ -27,10 +27,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1152,
-        1040
+        2144,
+        1008
       ],
-      "id": "327b94c2-06f3-4a7b-bd3d-3dcfd92e28ef",
+      "id": "b3ea858d-b62d-4022-8241-8872e403839a",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
@@ -42,33 +42,33 @@
     {
       "parameters": {
         "content": "## 1. Upload files to Pinecone Assistant",
-        "height": 640,
-        "width": 1776,
+        "height": 384,
+        "width": 1104,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        768,
-        0
+        1616,
+        288
       ],
       "typeVersion": 1,
-      "id": "ae8f7bfc-d7e7-43e3-87ff-1863274cc3e1",
+      "id": "9cfcdb71-2986-47a3-8f03-250fcab1048d",
       "name": "Sticky Note1"
     },
     {
       "parameters": {
         "content": "## 2. Chat with your docs",
-        "height": 576,
-        "width": 1344,
+        "height": 512,
+        "width": 1104,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        768,
-        704
+        1616,
+        688
       ],
       "typeVersion": 1,
-      "id": "082e1b5a-edc0-4bb3-bbe8-163f81b82805",
+      "id": "d7f2f4b8-2e45-4902-8949-202b8b2c699b",
       "name": "Sticky Note2"
     },
     {
@@ -78,25 +78,25 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.3,
       "position": [
-        848,
-        816
+        1840,
+        784
       ],
-      "id": "02b8830a-6457-4e5e-bf9a-09a1a9d02183",
+      "id": "4d2a6aa1-ca4d-4165-a635-7ef53084636b",
       "name": "Chat input",
       "webhookId": "4672d1f8-d2bb-4059-8761-7aa5792814c0"
     },
     {
       "parameters": {
-        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets you chat with Pinecone release notes files downloaded via HTTP (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone Assistant. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n\n### Setup\n\n1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) \n\t1. Name your Assistant `n8n-assistant`\n\t2. No need to configure a Chat model or Assistant instructions\n2. Setup Pinecone API key credential in n8n\n\t1. In the Upload file to Assistant node -> PineconeApi section, select Create new credential\n\t2. Paste in your Pinecone API key in the API Key field\n3. Select your Assistant Name in each of the Pinecone Assistant nodes\n4. Setup the Open AI credential in n8n\n\t1. In the OpenAI Chat Model node -> Credential to connect with, select Create new credential\n\t2. Set the API Key field to your OpenAI API key\n5. Activate the workflow or test it with a manual execution to ingest the documents\n6. Chat with your docs!\n\n### Ideas for customizing this workflow\n\n- Change the urls in Set file urls node to use your own files\n- Customize the System Message on the AI Agent node to your use case to indicate what kind of knowledge is stored in Pinecone Assistant\n- Change the Top K and/or Snippet Size values to help manage token consumption by adding the Top K and/or Snippet Size parameters to Get context from Assistant node\n- Filter the context snippets even further by adding metadata filters to the Get context from Assistant node\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
-        "height": 1280,
+        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets you chat with Pinecone release notes files downloaded via HTTP (.docx, .json, .md, .txt, .pdf) using OpenAI and Pinecone Assistant. It retrieves relevant context from your files in real time so you can get accurate, context-aware answers about your proprietary data—without the need to train your own LLM.\n\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n\n### Setup\n\n1. Create a Pinecone Assistant named `n8n-assistant` in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) \n2. Use the Connect to Pinecone button to authenticate to Pinecone or if you self-host n8n, create a Pinecone credential and add your [Pinecone API key](https://app.pinecone.io/organizations/-/projects/-/keys) directly\n3. Select your Assistant Name in each of the Pinecone Assistant nodes\n4. Setup the Open AI credential in n8n with your OpenAI API key\n5. Activate the workflow or test it with a manual execution to ingest the documents\n6. Chat with your docs!\n\n### Ideas for customizing this workflow\n\n- Change the urls in Set file urls node to use your own files\n- Customize the System Message on the AI Agent node to your use case to indicate what kind of knowledge is stored in Pinecone Assistant\n- Change the Top K and/or Snippet Size values to help manage token consumption by adding the Top K and/or Snippet Size parameters to Get context from Assistant node\n- Filter the context snippets even further by adding metadata filters to the Get context from Assistant node\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
+        "height": 1120,
         "width": 636
       },
-      "id": "b65a87ae-090f-4362-92d0-1b4a91f539a9",
+      "id": "bfcb8a57-b52c-4510-8c03-e15c5da73d78",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        0,
-        0
+        960,
+        288
       ],
       "typeVersion": 1
     },
@@ -105,10 +105,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        928,
-        256
+        1760,
+        432
       ],
-      "id": "796a1e00-78ca-4dbe-82cd-c523f8fc3f4a",
+      "id": "3e9529b4-d0ae-4ea8-9d27-c96e7cbd6ad9",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -128,10 +128,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1088,
-        256
+        1920,
+        432
       ],
-      "id": "466d063b-4b6a-487d-935c-14b2a8f08b49",
+      "id": "6b409421-2270-497e-a7fd-b382d192314c",
       "name": "Set file urls"
     },
     {
@@ -142,10 +142,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1248,
-        256
+        2080,
+        432
       ],
-      "id": "e4a64e93-bf9c-4f05-97b8-3f9e65958ca3",
+      "id": "e73f6f2c-4d20-48cb-b132-551ff9c3dd61",
       "name": "Split to list"
     },
     {
@@ -154,7 +154,7 @@
         "options": {
           "response": {
             "response": {
-              "responseFormat": "text"
+              "responseFormat": "file"
             }
           }
         }
@@ -162,28 +162,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1408,
-        256
+        2240,
+        432
       ],
-      "id": "d84c0b2d-06d3-405e-b6c8-afdbd18f3d83",
+      "id": "a58f8e1c-943b-4a24-8746-477ed9912ad4",
       "name": "Download file"
-    },
-    {
-      "parameters": {
-        "operation": "toText",
-        "sourceProperty": "data",
-        "options": {
-          "fileName": "={{ $('Split to list').item.json.urls }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1568,
-        256
-      ],
-      "id": "30666a64-1671-4069-8af3-1cd0c2f97302",
-      "name": "Convert to md file"
     },
     {
       "parameters": {
@@ -196,17 +179,17 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
-        1776,
-        256
+        2416,
+        432
       ],
-      "id": "591a71fe-4afa-4d06-8053-a2c1b81c026d",
+      "id": "196122df-d2b2-43e4-9f8d-710aedb595a6",
       "name": "Upload file to Assistant",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "GwHylpB6WoRjIGlA",
-          "name": "Pinecone Assistant account"
+        "pineconeApi": {
+          "id": "pBm0ARHJdLXfTUXe",
+          "name": "Pinecone account"
         }
       }
     },
@@ -218,17 +201,17 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
-        1376,
-        1024
+        2368,
+        992
       ],
-      "id": "80ff0124-519b-421b-ba00-a7a11aa6af38",
+      "id": "c3ba53e9-511d-47e7-b7fb-38bb093d279f",
       "name": "Get context from Assistant",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "GwHylpB6WoRjIGlA",
-          "name": "Pinecone Assistant account"
+        "pineconeApi": {
+          "id": "pBm0ARHJdLXfTUXe",
+          "name": "Pinecone account"
         }
       }
     }
@@ -290,17 +273,6 @@
       ]
     },
     "Download file": {
-      "main": [
-        [
-          {
-            "node": "Convert to md file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Convert to md file": {
       "main": [
         [
           {

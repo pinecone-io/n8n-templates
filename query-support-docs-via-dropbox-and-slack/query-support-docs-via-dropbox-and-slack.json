@@ -50,7 +50,7 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
         560,
         672
@@ -58,9 +58,9 @@
       "id": "86b802d1-2c79-4c73-9a9d-0aef3176e0f7",
       "name": "Pinecone Assistant tool",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "7y6pdDIKb7EJu8Wk",
-          "name": "Pinecone Assistant account 4"
+        "pineconeApi": {
+          "id": "fMG8L3ZDy9UYa1DN",
+          "name": "Pinecone account"
         }
       }
     },
@@ -114,7 +114,7 @@
     },
     {
       "parameters": {
-        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets customer support representatives query support docs like help articles, FAQs, run books, etc. via Slack bot. Drop your support docs into Dropbox, and this workflow will upload it from Dropbox to Pinecone Assistant. Then ask your Slack bot for info on support issues to get accurate, context-aware answers about your proprietary support data from Pinecone Assistant, all without the need to train your own LLM.\n\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/) and [API key](https://app.pinecone.io/organizations/-/projects/-/keys)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n* A [Dropbox Developer account](https://www.dropbox.com/developers) and [API Access Token](https://docs.n8n.io/integrations/builtin/credentials/dropbox/)\n* A [Slack app with an access token](https://docs.n8n.io/integrations/builtin/credentials/slack/#using-api-access-token) and [webhook](https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.slacktrigger/#configure-a-webhook-in-slack)\n\n### Setup\n\n1. Create a Pinecone Assistant in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) named `n8n-assistant`\n2. Setup Pinecone API key, OpenAI API key, Slack access token, and Dropbox access token as credentials in n8n\n3. Create a Slack channel `support-queries` dedicated to this workflow and invite your Slack app to it\n4. In the On message from Slack node, select your Slack app in the Usernames or IDs to Ignore field\n5. Add your support docs (.docx, .txt, .pdf, .md, .json) to the `/Apps/your-dropbox-app-name/support-queries-docs` folder on Dropbox\n6. Manually execute Step 1 to upload the documents from Dropbox to Pinecone Assistant\n7. Post a message in your Slack channel mentioning your app: `@your-slack-app What are common issues customers have faced recently?`\n8. Reply in the thread with another message, with or without mentioning the app: `What are the recommended solutions to the [XYZ] issue?`\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.\n",
+        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n\n## Try it out\n\nThis n8n workflow template lets customer support representatives query support docs like help articles, FAQs, run books, etc. via Slack bot. Drop your support docs into Dropbox, and this workflow will upload it from Dropbox to Pinecone Assistant. Then ask your Slack bot for info on support issues to get accurate, context-aware answers about your proprietary support data from Pinecone Assistant, all without the need to train your own LLM.\n\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n* A [Dropbox Developer account](https://www.dropbox.com/developers) and [API Access Token](https://docs.n8n.io/integrations/builtin/credentials/dropbox/)\n* A [Slack app with an access token](https://docs.n8n.io/integrations/builtin/credentials/slack/#using-api-access-token) and [webhook](https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.slacktrigger/#configure-a-webhook-in-slack)\n\n### Setup\n\n1. Create a Pinecone Assistant named `n8n-assistant` in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant)\n2. Use the Connect to Pinecone button to authenticate to Pinecone or if you self-host n8n, create a Pinecone credential and add your [Pinecone API key](https://app.pinecone.io/organizations/-/projects/-/keys) directly\n3. Setup the Open AI, Slack, and Dropbox credentials in n8n\n4. Create a Slack channel `support-queries` dedicated to this workflow and invite your Slack app to it\n5. In the On message from Slack node, select your Slack app in the Usernames or IDs to Ignore field\n6. Add your support docs (.docx, .txt, .pdf, .md, .json) to the `/Apps/your-dropbox-app-name/support-queries-docs` folder on Dropbox\n7. Manually execute Step 1 to upload the documents from Dropbox to Pinecone Assistant\n8. Post a message in your Slack channel mentioning your app: `@your-slack-app What are common issues customers have faced recently?`\n9. Reply in the thread with another message, with or without mentioning the app: `What are the recommended solutions to the [XYZ] issue?`\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.\n",
         "height": 1024,
         "width": 700
       },
@@ -276,7 +276,7 @@
         }
       },
       "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-      "typeVersion": 1,
+      "typeVersion": 1.2,
       "position": [
         608,
         -16
@@ -284,9 +284,9 @@
       "id": "3c0ebe7e-cb68-4010-93c4-eceb29e68e88",
       "name": "Upload files",
       "credentials": {
-        "pineconeAssistantApi": {
-          "id": "7y6pdDIKb7EJu8Wk",
-          "name": "Pinecone Assistant account 4"
+        "pineconeApi": {
+          "id": "fMG8L3ZDy9UYa1DN",
+          "name": "Pinecone account"
         }
       }
     },
