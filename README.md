@@ -42,6 +42,7 @@ Then, add your credentials (OpenAI, Pinecone, Google Drive, etc.) and you’re r
 |Extract insights from LinkedIn comments using Apify and Pinecone Assistant|[extract-insights-from-linkedin-comments/extract-insights-from-linkedin-comments.json](extract-insights-from-linkedin-comments/extract-insights-from-linkedin-comments.json)|LinkedIn, Apify, Pinecone Assistant, Open AI|
 |Query support docs via Dropbox and Slack using Pinecone Assistant|[query-support-docs-via-dropbox-and-slack/query-support-docs-via-dropbox-and-slack.json](query-support-docs-via-dropbox-and-slack/query-support-docs-via-dropbox-and-slack.json)|Dropbox, Slack, Pinecone Assistant, Open AI|
 |Vacation rental property manager with multiple Assistants|[vacation-rental-property-manager-assistants/vacation-rental-property-manager-assistants.json](vacation-rental-property-manager-assistants/vacation-rental-property-manager-assistants.json)|Google Drive, Pinecone Assistant, Open AI|
+|DataCamp code along: Build a customer assistant with multi-domain RAG|[datacamp-codealong/datacamp-codealong.json](datacamp-codealong/datacamp-codealong.json)|GitHub, Pinecone Assistant, Open AI|
 
 ## Finding help
 
