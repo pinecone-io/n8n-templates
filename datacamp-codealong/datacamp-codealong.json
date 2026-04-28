@@ -1,593 +1,609 @@
 {
-    "nodes": [
-      {
-        "parameters": {
-          "options": {
-            "responseMode": "lastNode"
-          }
-        },
-        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-        "typeVersion": 1.4,
-        "position": [
-          1840,
-          -384
-        ],
-        "id": "9cc1c3ac-532f-4267-82bd-5efb6e0290b0",
-        "name": "When chat message received",
-        "webhookId": "fd6507b7-411a-4609-ad10-3e0b6e03fede"
-      },
-      {
-        "parameters": {
-          "options": {
-            "systemMessage": "You are a helpful assistant for a vacation rental property manager and their guests. Based on the user's message, decide if they are requesting information about the \"hillcrest\", \"birchwood\", \"lakeside\" property. You route requests based on property name to the appropriate pinecone assistant tool to fetch answers about the property.\n\nIf you cannot infer the property from the user's message, do not call any tools and instead ask for more information in the chat.\n\nIf the person requests to be contacted, do not call any tools and instead return a response indicating that someone will reach out to them.\n\nUse a friendly, helpful tone.",
-            "maxIterations": 3
-          }
-        },
-        "type": "@n8n/n8n-nodes-langchain.agent",
-        "typeVersion": 3,
-        "position": [
-          2304,
-          -384
-        ],
-        "id": "c196b984-09c5-440d-89a3-b270fd28b416",
-        "name": "AI Agent"
-      },
-      {
-        "parameters": {
-          "model": {
-            "__rl": true,
-            "mode": "list",
-            "value": "gpt-4.1-mini"
-          },
-          "builtInTools": {},
-          "options": {}
-        },
-        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-        "typeVersion": 1.3,
-        "position": [
-          2112,
-          -80
-        ],
-        "id": "34b3a319-fa8e-4528-b8c3-7c4d29f1624e",
-        "name": "OpenAI Chat Model",
-        "credentials": {
-          "openAiApi": {
-            "id": "wRaEYGibKa7GoCaK",
-            "name": "OpenAi account"
-          }
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "responseMode": "lastNode"
         }
       },
-      {
-        "parameters": {
-          "content": "## Step 1: Upload property data to separate Pinecone Assistants",
-          "height": 688,
-          "width": 1636,
-          "color": 7
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          1584,
-          -1248
-        ],
-        "typeVersion": 1,
-        "id": "f8553691-7828-4e31-9a11-82606dc8b5bd",
-        "name": "Sticky Note"
-      },
-      {
-        "parameters": {
-          "content": "## Step 2: Get answers and help about a specific property",
-          "height": 736,
-          "width": 1632,
-          "color": 7
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          1584,
-          -528
-        ],
-        "typeVersion": 1,
-        "id": "74eba308-10b4-4950-981d-e535c2cdaa4c",
-        "name": "Sticky Note1"
-      },
-      {
-        "parameters": {
-          "resource": "file",
-          "operation": "uploadFile",
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-hillcrest\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-        "typeVersion": 1.2,
-        "position": [
-          2960,
-          -1184
-        ],
-        "id": "0f5401d4-c371-4dd7-a797-9429b5b9388f",
-        "name": "Upload file to Hillcrest Assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        1840,
+        -384
+      ],
+      "id": "9cc1c3ac-532f-4267-82bd-5efb6e0290b0",
+      "name": "When chat message received",
+      "webhookId": "fd6507b7-411a-4609-ad10-3e0b6e03fede"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant for a vacation rental property manager and their guests. Based on the user's message, decide if they are requesting information about the \"hillcrest\", \"birchwood\", \"lakeside\" property. You route requests based on property name to the appropriate pinecone assistant tool to fetch answers about the property.\n\nIf you cannot infer the property from the user's message, do not call any tools and instead ask for more information in the chat.\n\nIf the person requests to be contacted, do not call any tools and instead return a response indicating that someone will reach out to them.\n\nUse a friendly, helpful tone.",
+          "maxIterations": 3
         }
       },
-      {
-        "parameters": {
-          "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n## DataCamp Code Along\n\nLearn more about this session [here](https://www.datacamp.com/webinars/build-a-customer-assistant-ai-with-multi-domain-rag-n8n-and-pinecone).\n\n### Key takeaways\n- Learn what knowledge is, why it matters for AI, and where Pinecone fits in.\n- Understand why specialized knowledge bases beat single-index RAG.\n- Build a multi-domain query routing system in n8n with Pinecone Assistant.\n\n## Try it out\n\nThis workflow shows you how a vacation rental property manager can manage multiple properties each with different information using Pinecone Assistant. Guests can ask questions about their property and get a personalized answer back.\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys)\n\n### Setup\n\n1. Create three Pinecone Assistants named `n8n-vacation-rental-property-lakeside`, `n8n-vacation-rental-property-birchwood`, `n8n-vacation-rental-property-hillcrest` in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) \n2. Use the Connect to Pinecone button to authenticate to Pinecone or if you self-host n8n, create a Pinecone credential and add your [Pinecone API key](https://app.pinecone.io/organizations/-/projects/-/keys) directly\n3. Select your Assistant Name in each of the respective Pinecone Assistant nodes\n4. We'll use the fictional data [here](https://github.com/pinecone-io/n8n-templates/blob/main/vacation-rental-property-manager-assistants/fictional-data), downloaded via the workflow.\n5. Trigger the workflow to upload all the documents to Pinecone\n6. Once the data is uploaded, ask questions in the chat about a property:\n\t1. `I need help with the coffee maker`\n\t2. `The air fryer isn't working at the Lakeside property`\n\t3. `I'm staying at Lakeside and the refrigerator is leaking`\n\n### Ideas for customizing this workflow\n\n- This workflow uses one Assistant per property. You could also use one Assistant and separate the data by setting a metadata field, `property`, to the name of the property the file is for.\n- Use your own data and customize to your use case with multiple store locations, restaurants, teams, users, etc. anywhere you need different context.\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
-          "height": 1456,
-          "width": 416
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        2304,
+        -384
+      ],
+      "id": "c196b984-09c5-440d-89a3-b270fd28b416",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
         },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          1136,
-          -1248
-        ],
-        "typeVersion": 1,
-        "id": "e02be00f-4296-4405-961e-713b569a4231",
-        "name": "Sticky Note2"
+        "builtInTools": {},
+        "options": {}
       },
-      {
-        "parameters": {
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-hillcrest\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-        "typeVersion": 1.2,
-        "position": [
-          2528,
-          16
-        ],
-        "id": "22706bc6-12ba-4015-b664-36f74d675a6e",
-        "name": "Hillcrest assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2064,
+        -80
+      ],
+      "id": "34b3a319-fa8e-4528-b8c3-7c4d29f1624e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "wRaEYGibKa7GoCaK",
+          "name": "OpenAi account"
         }
-      },
-      {
-        "parameters": {
-          "sessionIdType": "customKey",
-          "sessionKey": "={{ $('When chat message received').item.json.sessionId }}",
-          "contextWindowLength": 3
-        },
-        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-        "typeVersion": 1.3,
-        "position": [
-          2288,
-          -80
-        ],
-        "id": "0e9b2f6e-a627-4a6a-9744-476d6e43d101",
-        "name": "Conversational memory"
-      },
-      {
-        "parameters": {
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-lakeside\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-        "typeVersion": 1.2,
-        "position": [
-          2720,
-          -32
-        ],
-        "id": "46fd2377-348a-4567-88ab-822fecb49119",
-        "name": "Lakeside assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-birchwood\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
-        "typeVersion": 1.2,
-        "position": [
-          2880,
-          -192
-        ],
-        "id": "50bfa01f-0e7e-448e-b018-881d9f7a082d",
-        "name": "Birchwood assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
-        }
-      },
-      {
-        "parameters": {},
-        "type": "n8n-nodes-base.manualTrigger",
-        "typeVersion": 1,
-        "position": [
-          1696,
-          -976
-        ],
-        "id": "159b5719-3d61-4da6-8bd4-81f7b0fd57ba",
-        "name": "When clicking ‘Execute workflow’"
-      },
-      {
-        "parameters": {
-          "rules": {
-            "values": [
-              {
-                "conditions": {
-                  "options": {
-                    "caseSensitive": true,
-                    "leftValue": "",
-                    "typeValidation": "strict",
-                    "version": 3
-                  },
-                  "conditions": [
-                    {
-                      "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
-                      "rightValue": "hillcrest",
-                      "operator": {
-                        "type": "string",
-                        "operation": "equals"
-                      },
-                      "id": "a9908862-fa8f-4ce6-a04a-51d35ef00fe5"
-                    }
-                  ],
-                  "combinator": "and"
-                },
-                "renameOutput": true,
-                "outputKey": "hillcrest"
-              },
-              {
-                "conditions": {
-                  "options": {
-                    "caseSensitive": true,
-                    "leftValue": "",
-                    "typeValidation": "strict",
-                    "version": 3
-                  },
-                  "conditions": [
-                    {
-                      "id": "891fb879-fe74-4a0f-ade6-c7afad99e2ee",
-                      "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
-                      "rightValue": "birchwood",
-                      "operator": {
-                        "type": "string",
-                        "operation": "equals",
-                        "name": "filter.operator.equals"
-                      }
-                    }
-                  ],
-                  "combinator": "and"
-                },
-                "renameOutput": true,
-                "outputKey": "birchwood"
-              },
-              {
-                "conditions": {
-                  "options": {
-                    "caseSensitive": true,
-                    "leftValue": "",
-                    "typeValidation": "strict",
-                    "version": 3
-                  },
-                  "conditions": [
-                    {
-                      "id": "1b832e87-30e4-44bc-92fc-4d6dcb1a94e1",
-                      "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
-                      "rightValue": "lakeside",
-                      "operator": {
-                        "type": "string",
-                        "operation": "equals",
-                        "name": "filter.operator.equals"
-                      }
-                    }
-                  ],
-                  "combinator": "and"
-                },
-                "renameOutput": true,
-                "outputKey": "lakeside"
-              }
-            ]
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.switch",
-        "typeVersion": 3.4,
-        "position": [
-          2656,
-          -992
-        ],
-        "id": "66dae405-d467-4c94-846d-79c76963cebf",
-        "name": "Switch"
-      },
-      {
-        "parameters": {
-          "assignments": {
-            "assignments": [
-              {
-                "id": "d0e724df-685f-4661-b2ec-3cdd3c2ba0f1",
-                "name": "urls",
-                "value": "[\"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_local_recommendations.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_local_recommendations.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_local_recommendations.md\"]",
-                "type": "array"
-              }
-            ]
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
-        "position": [
-          1888,
-          -976
-        ],
-        "id": "fc47dd30-59be-4e1d-be84-3b73e06ffa6d",
-        "name": "Set file urls"
-      },
-      {
-        "parameters": {
-          "fieldToSplitOut": "urls",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.splitOut",
-        "typeVersion": 1,
-        "position": [
-          2080,
-          -976
-        ],
-        "id": "4349f108-03a7-48f6-8764-3000cca0ec8d",
-        "name": "Split to list"
-      },
-      {
-        "parameters": {
-          "url": "={{ $json.urls }}",
-          "options": {
-            "response": {
-              "response": {
-                "responseFormat": "text"
-              }
-            }
-          }
-        },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.2,
-        "position": [
-          2272,
-          -976
-        ],
-        "id": "efd960b3-042c-4d43-9103-4fdc17388d64",
-        "name": "Download file"
-      },
-      {
-        "parameters": {
-          "operation": "toText",
-          "sourceProperty": "data",
-          "options": {
-            "fileName": "={{ $('Split to list').item.json.urls }}"
-          }
-        },
-        "type": "n8n-nodes-base.convertToFile",
-        "typeVersion": 1.1,
-        "position": [
-          2464,
-          -976
-        ],
-        "id": "4dc9a14a-9c55-4584-b001-cf5dc5b465f8",
-        "name": "Convert to md file"
-      },
-      {
-        "parameters": {
-          "resource": "file",
-          "operation": "uploadFile",
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-birchwood\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-        "typeVersion": 1.2,
-        "position": [
-          2960,
-          -976
-        ],
-        "id": "3d86dd3a-77bf-4729-895f-39a259bf698c",
-        "name": "Upload file to Birchwood Assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "resource": "file",
-          "operation": "uploadFile",
-          "assistantData": "{\"name\":\"n8n-vacation-rental-property-lakeside\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
-          "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
-          "additionalFields": {
-            "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
-          }
-        },
-        "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
-        "typeVersion": 1.2,
-        "position": [
-          2960,
-          -768
-        ],
-        "id": "5452ba78-809c-4e60-8200-b43a06f51e11",
-        "name": "Upload file to Lakeside Assistant",
-        "credentials": {
-          "pineconeApi": {
-            "id": "4BTCadF29vOTo4Dm",
-            "name": "PineconeApi account"
-          }
-        }
-      }
-    ],
-    "connections": {
-      "When chat message received": {
-        "main": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "OpenAI Chat Model": {
-        "ai_languageModel": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "ai_languageModel",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Hillcrest assistant": {
-        "ai_tool": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Conversational memory": {
-        "ai_memory": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "ai_memory",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Lakeside assistant": {
-        "ai_tool": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Birchwood assistant": {
-        "ai_tool": [
-          [
-            {
-              "node": "AI Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "When clicking ‘Execute workflow’": {
-        "main": [
-          [
-            {
-              "node": "Set file urls",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Switch": {
-        "main": [
-          [
-            {
-              "node": "Upload file to Hillcrest Assistant",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "Upload file to Birchwood Assistant",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "Upload file to Lakeside Assistant",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Set file urls": {
-        "main": [
-          [
-            {
-              "node": "Split to list",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Split to list": {
-        "main": [
-          [
-            {
-              "node": "Download file",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Download file": {
-        "main": [
-          [
-            {
-              "node": "Convert to md file",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Convert to md file": {
-        "main": [
-          [
-            {
-              "node": "Switch",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
       }
     },
-    "pinData": {},
-    "meta": {
-      "templateCredsSetupCompleted": true,
-      "instanceId": "6ae6d27e57788e6797af2bf16734f2cac83ad4b8f8ebbf57445f55ef5d3a52da"
+    {
+      "parameters": {
+        "content": "## Step 1: Upload property data to separate Pinecone Assistants",
+        "height": 688,
+        "width": 1636,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1584,
+        -1248
+      ],
+      "typeVersion": 1,
+      "id": "f8553691-7828-4e31-9a11-82606dc8b5bd",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Step 2: Get answers and help about a specific property",
+        "height": 736,
+        "width": 1632,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1584,
+        -528
+      ],
+      "typeVersion": 1,
+      "id": "74eba308-10b4-4950-981d-e535c2cdaa4c",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "uploadFile",
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-hillcrest\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
+      "typeVersion": 1.2,
+      "position": [
+        2960,
+        -1184
+      ],
+      "id": "0f5401d4-c371-4dd7-a797-9429b5b9388f",
+      "name": "Upload file to Hillcrest Assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "![Pinecone logo](https://www.pinecone.io/images/pinecone-logo-for-n8n-templates.png)\n\n## DataCamp Code Along\n\nLearn more about this session [here](https://www.datacamp.com/webinars/build-a-customer-assistant-ai-with-multi-domain-rag-n8n-and-pinecone).\n\n### Key takeaways\n- Learn what knowledge is, why it matters for AI, and where Pinecone fits in.\n- Understand why specialized knowledge bases beat single-index RAG.\n- Build a multi-domain query routing system in n8n with Pinecone Assistant.\n\n## Try it out\n\nThis workflow shows you how a vacation rental property manager can manage multiple properties each with different information using Pinecone Assistant. Guests can ask questions about their property and get a personalized answer back.\n### What is Pinecone Assistant?\n\n[Pinecone Assistant](https://docs.pinecone.io/guides/assistant/overview) allows you to build production-grade chat and agent-based applications quickly. It abstracts the complexities of implementing retrieval-augmented (RAG) systems by managing the chunking, embedding, storage, query planning, vector search, model orchestration, reranking for you.\n### Prerequisites\n\n* A [Pinecone account](https://app.pinecone.io/?sessionType=signup&utm_source=datacamp&utm_medium=webinar&utm_campaign=datacamp_codealong_2026_04_29&utm_content=template)\n* An [Open AI account](https://auth.openai.com/create-account) and [API key](https://platform.openai.com/settings/organization/api-keys) with credits loaded (this will cost less than $1)\n  * If you have an Anthropic API key with credits loaded, that will work too.\n\n### Setup\n\n1. Create three Pinecone Assistants named `n8n-vacation-rental-property-lakeside`, `n8n-vacation-rental-property-birchwood`, `n8n-vacation-rental-property-hillcrest` in the Pinecone Console [here](https://app.pinecone.io/organizations/-/projects/-/assistant) \n2. Use the Connect to Pinecone button to authenticate to Pinecone or if you self-host n8n, create a Pinecone credential and add your [Pinecone API key](https://app.pinecone.io/organizations/-/projects/-/keys) directly\n3. Select your Assistant Name in each of the respective Pinecone Assistant nodes\n4. We'll use the fictional data [here](https://github.com/pinecone-io/n8n-templates/blob/main/vacation-rental-property-manager-assistants/fictional-data), downloaded via the workflow.\n5. Trigger the workflow to upload all the documents to Pinecone\n6. Once the data is uploaded, ask questions in the chat about a property:\n\t1. `I need help with the coffee maker`\n\t2. `The air fryer isn't working at the Lakeside property`\n\t3. `I'm staying at Lakeside and the refrigerator is leaking`\n\n### Ideas for customizing this workflow\n\n- This workflow uses one Assistant per property. You could also use one Assistant and separate the data by setting a metadata field, `property`, to the name of the property the file is for.\n- Use your own data and customize to your use case with multiple store locations, restaurants, teams, users, etc. anywhere you need different context.\n\n### Need help?\n\nYou can find help by asking in the [Pinecone Discord community](https://discord.gg/tJ8V62S3sH) or [filing an issue](https://github.com/pinecone-io/n8n-templates/issues/new/choose) on this repo.",
+        "height": 1456,
+        "width": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1136,
+        -1248
+      ],
+      "typeVersion": 1,
+      "id": "e02be00f-4296-4405-961e-713b569a4231",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-hillcrest\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
+      "typeVersion": 1.2,
+      "position": [
+        2528,
+        16
+      ],
+      "id": "22706bc6-12ba-4015-b664-36f74d675a6e",
+      "name": "Hillcrest assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('When chat message received').item.json.sessionId }}",
+        "contextWindowLength": 3
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2288,
+        -80
+      ],
+      "id": "0e9b2f6e-a627-4a6a-9744-476d6e43d101",
+      "name": "Conversational memory"
+    },
+    {
+      "parameters": {
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-lakeside\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
+      "typeVersion": 1.2,
+      "position": [
+        2720,
+        -32
+      ],
+      "id": "46fd2377-348a-4567-88ab-822fecb49119",
+      "name": "Lakeside assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-birchwood\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistantTool",
+      "typeVersion": 1.2,
+      "position": [
+        2880,
+        -192
+      ],
+      "id": "50bfa01f-0e7e-448e-b018-881d9f7a082d",
+      "name": "Birchwood assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        -976
+      ],
+      "id": "159b5719-3d61-4da6-8bd4-81f7b0fd57ba",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
+                    "rightValue": "hillcrest",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a9908862-fa8f-4ce6-a04a-51d35ef00fe5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "hillcrest"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "891fb879-fe74-4a0f-ade6-c7afad99e2ee",
+                    "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
+                    "rightValue": "birchwood",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "birchwood"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "1b832e87-30e4-44bc-92fc-4d6dcb1a94e1",
+                    "leftValue": "={{ $('Split to list').item.json.urls.split('/')[10] }}",
+                    "rightValue": "lakeside",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "lakeside"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        2656,
+        -992
+      ],
+      "id": "66dae405-d467-4c94-846d-79c76963cebf",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d0e724df-685f-4661-b2ec-3cdd3c2ba0f1",
+              "name": "urls",
+              "value": "[\"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/hillcrest/hillcrest_haven_local_recommendations.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_local_recommendations.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/birchwood/birchwood_retreat_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_appliance_guide.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_house_manual.md\", \"https://raw.githubusercontent.com/pinecone-io/n8n-templates/refs/heads/main/vacation-rental-property-manager-assistants/fictional-data/lakeside/lakeside_loft_local_recommendations.md\"]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1888,
+        -976
+      ],
+      "id": "fc47dd30-59be-4e1d-be84-3b73e06ffa6d",
+      "name": "Set file urls"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urls",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        -976
+      ],
+      "id": "4349f108-03a7-48f6-8764-3000cca0ec8d",
+      "name": "Split to list"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.urls }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2272,
+        -976
+      ],
+      "id": "efd960b3-042c-4d43-9103-4fdc17388d64",
+      "name": "Download file"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "data",
+        "options": {
+          "fileName": "={{ $('Split to list').item.json.urls }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2464,
+        -976
+      ],
+      "id": "4dc9a14a-9c55-4584-b001-cf5dc5b465f8",
+      "name": "Convert to md file"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "uploadFile",
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-birchwood\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
+      "typeVersion": 1.2,
+      "position": [
+        2960,
+        -976
+      ],
+      "id": "3d86dd3a-77bf-4729-895f-39a259bf698c",
+      "name": "Upload file to Birchwood Assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "uploadFile",
+        "assistantData": "{\"name\":\"n8n-vacation-rental-property-lakeside\",\"host\":\"https://prod-1-data.ke.pinecone.io\"}",
+        "externalFileId": "={{ $('Set file urls').item.json.urls[0] }}",
+        "additionalFields": {
+          "sourceTag": "n8n:n8n_nodes_pinecone_assistant:datacamp_codealong"
+        }
+      },
+      "type": "@pinecone-database/n8n-nodes-pinecone-assistant.pineconeAssistant",
+      "typeVersion": 1.2,
+      "position": [
+        2960,
+        -768
+      ],
+      "id": "5452ba78-809c-4e60-8200-b43a06f51e11",
+      "name": "Upload file to Lakeside Assistant",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4BTCadF29vOTo4Dm",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Don't have an OpenAI API key?\n\nSwap out the OpenAI model for another one if you don't have an OpenAI api key.\n\n1. Delete the connection between the AI Agent and OpenAI Chat Model node.\n2. Click the + button on the AI Agent node.\n3. Search for and add another chat model like Anthropic.\n3. Set up your Anthropic API key in the node credentials.\n4. Select a Claude Sonnet 4.x model in the node.",
+        "height": 272,
+        "width": 400,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1600,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "d4d840d3-f52e-4362-998e-367ba1f518dc",
+      "name": "Sticky Note3"
     }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hillcrest assistant": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversational memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lakeside assistant": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Birchwood assistant": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set file urls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Upload file to Hillcrest Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Upload file to Birchwood Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Upload file to Lakeside Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set file urls": {
+      "main": [
+        [
+          {
+            "node": "Split to list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split to list": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Convert to md file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to md file": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6ae6d27e57788e6797af2bf16734f2cac83ad4b8f8ebbf57445f55ef5d3a52da"
   }
+}
